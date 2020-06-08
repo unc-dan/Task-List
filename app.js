@@ -11,14 +11,15 @@ loadEventListeners();
 function loadEventListeners() {
     //Add task event
     form.addEventListener('submit', addTask);
+    //Remove task event
+    taskList.addEventListener('click', removeTask)
 }
 
-// Add task function
+// Add Task
 function addTask(e) {
     if(taskInput.value === '') {
         alert('Add a task');
     }
-
     // Create li element
     const li = document.createElement('li');
     // Add class
@@ -35,11 +36,18 @@ function addTask(e) {
     li.appendChild(link);
     // Append li to ul
     taskList.appendChild(li);
-
-    // Clear input
+    // Clear input field
     taskInput.value = '';
 
-
+    // Override default submit functionality
     e.preventDefault();
 }
 
+// Remove Task
+function removeTask(e) {
+    if(e.target.parentElement.classList.contains('delete-item')) {
+        if(confirm('Are you sure?')) {
+        e.target.parentElement.parentElement.remove();
+        }
+    }
+}
